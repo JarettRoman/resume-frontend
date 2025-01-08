@@ -1,0 +1,27 @@
+name: Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Azure Storage
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --source ./public --destination '$web'
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Purge Azure Front Door cache
+        uses: Azure/cli@v1
+        with:
+          inlineScript: |
+            az afd endpoint purge --resource-group ${{ secrets.RESOURCE_GROUP_NAME }} --profile-name ${{ secrets.AFD_PROFILE_NAME }} --endpoint-name ${{ secrets.AFD_ENDPOINT_NAME }} --content-paths "/*"
