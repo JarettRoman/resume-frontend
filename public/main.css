@@ -6,6 +6,7 @@
     --heading-color: #ffffff;
     --link-color: #66b3ff;
     --border-color: #404040;
+    --link-visited-color: #b088ff;
 }
 
 /* Light mode styles */
@@ -16,6 +17,7 @@
     --heading-color: #333;
     --link-color: #007BFF;
     --border-color: #eee;
+    --link-visited-color: #551A8B;
 }
 
 /* Update existing styles to use variables */
@@ -74,4 +76,8 @@ h1, h2, h3 {
 
 #themeToggle:hover {
     transform: scale(1.1);
+}
+
+a:visited {
+    color: var(--link-visited-color);
 }
