@@ -43,4 +43,3 @@ jobs:
               --profile-name ${{ secrets.AFD_PROFILE_NAME }} \
               --endpoint-name ${{ secrets.AFD_ENDPOINT_NAME }} \
               --content-paths "/*" \
-              --auth-mode login
