@@ -27,7 +27,12 @@ jobs:
         uses: Azure/cli@v2
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --source ./public --destination '$web' --overwrite
+            az storage blob upload-batch \
+              --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} \
+              --source ./public \
+              --destination '$web' \
+              --auth-mode login \
+              --overwrite
 
       - name: Purge Azure Front Door cache
         uses: Azure/cli@v2
